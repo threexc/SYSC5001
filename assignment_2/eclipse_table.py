@@ -1,4 +1,5 @@
 from eclipse_estimate import *
+from tabulate import tabulate
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -24,6 +25,14 @@ def eclipse_table(x_length, y_length, num_trials):
 	#plt.show()
 
 	table_values = []
-	for j in range(100, 2100, 100):
-		t = j, values[j], lower_bound[j], upper_bound[j]
+	for j in np.arange(100, num_trials, 100):
+		print(j)
+		t = j, values[j], [lower_bound[j], upper_bound[j]]
 		table_values.append(t)
+
+
+
+	print(tabulate(table_values, headers = ["N", "Area", "95 CI"]))
+	f = open('table.txt', 'w')
+	f.write(tabulate(table_values, headers = ["N", "Area", "95 CI"]))
+	f.close()
