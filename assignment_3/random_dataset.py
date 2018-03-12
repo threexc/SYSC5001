@@ -3,7 +3,7 @@
 # SYSC5001 at Carleton University, Winter 2018
 
 from scipy.stats import chisquare
-from math import ceil, floor
+from math import ceil, floor, sqrt
 
 class DataSet:
 	def __init__(self, filename):
@@ -19,6 +19,7 @@ class DataSet:
 		self.D_minus_values = [0]*self.count
 		self.D_value = None
 		self.autocorrelation_value = None
+		self.autocorrelation_stdev = None
 
 	def set_uniformity_value(self):
 
@@ -46,5 +47,16 @@ class DataSet:
 		autocor_sum = autocor_sum - 0.25
 		self.autocorrelation_value = autocor_sum / (M_value + 1)
 
+	def set_independence_stdev(self, start_point, step_length):
+
+		M_value = floor(((self.count - start_point) / step_length) - 1)
+		self.autocorrelation_stdev = sqrt(13 * M_value + 7) / (12 * (M_value + 1))
+
 	def get_independence_value(self):
 		return self.autocorrelation_value
+
+	def get_independence_stdev(self):
+		return self.autocorrelation_stdev
+
+	def get_independence_crit(self):
+		return self.autocorrelation_value / self.autocorrelation_stdev
