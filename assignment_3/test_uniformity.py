@@ -1,4 +1,4 @@
-#/usr/bin/python3
+#!/usr/bin/python3
 
 # test_uniformity calculates the max D value for evaluating data sets with the
 # Kolmogorov-Smirnov test
